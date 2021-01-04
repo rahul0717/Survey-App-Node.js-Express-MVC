@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="eng">
+<% if (uiParams.showFinal == false && uiParams.showMatch == false && uiParams.err == false) { %>
+
+<head>
+    <title>SER421 MVC Ex Survey Page</title>
+</head>
+
+<body>
+    <form action="/survey" method="POST">
+        <p> Survey Page <%= uiParams.pageNum %> for user <%= uiParams.name %> </p>
+        <p><%= uiParams.question %> </p>
+        <a href="/preferences">Set Your Rendering Preferences</a>
+        <br>
+        <input type="hidden" name="pageNum" value=<%= uiParams.pageNum %> >
+        <% for(var i=0; i<uiParams.choices.length; i++){ %>
+        <% if (uiParams.choices[i] == uiParams.choiceToBeSelected) { %>
+        <input type="radio" name="choice" value = "<%= uiParams.choices[i] %>" checked>
+        <label for="choiceLbl"> <%= uiParams.choices[i] %></label>
+        <% if (uiParams.pref == "vertical") { %>
+        <br>
+        <% } %>
+        <% } else{ %>
+        <input type="radio" name="choice" value= "<%= uiParams.choices[i] %>" >
+        <label for="choiceLbl"> <%= uiParams.choices[i] %></label>
+        <% if (uiParams.pref == "vertical") { %>
+        <br>
+        <% } %>
+        <% } %>
+        <% } %>
+        <input type="submit" name="action" value="previous" style="display:<%=uiParams.previousFlag%>">
+        <input type="submit" name="action" value="next" style="display:<%= uiParams.nextFlag %>">
+
+    </form>
+</body>
+</form>
+
+</body>
+<% } %>
+<% if (uiParams.showFinal == true && uiParams.showMatch == false && uiParams.err == false) { %>
+
+<body>
+    <p><b>Ejs Thanks for completing the survey!!!</b></p>
+    <p>You are being redirected to <a href="/landing">HomePage</a></p>
+</body>
+<% } %>
+
+<% if (uiParams.showMatch == true && uiParams.err == false) { %>
+
+<head>
+    <title>SER421 MVC Ex Survey Matches</title>
+</head>
+
+<body>
+    <p>Ejs Best survey matches for <%= uiParams.name%> best-to-worst:</p>
+    <% if (uiParams.matchDataFlag != false) { %>
+    <ol>
+        <% uiParams.matchData.forEach(function(match){ %>
+        <li> User:<%= match.username%> matched <%= match.maxMatch%> answers</li>
+        <% }) %>
+    </ol>
+    <% } else if(uiParams.matchDataFlag == false){ %>
+    <p> <%= uiParams.matchData[0]%> <%= uiParams.name%> </p>
+    <% } %>
+
+</body>
+<% } %>
+
+
+<% if (uiParams.err == true) { %>
+<% if (uiParams.errorcode == 500) { %>
+
+<body>
+    <p><b>Internal server error</b></p>
+    <p>You are being redirected to <a href="/landing">HomePage</a></p>
+</body>
+<% } else if (uiParams.errorcode == 401){ %>
+
+<body>
+    <h1>HTTP Error Page</h1>
+    <p><b>Improper request, no action or username present</b></p>
+    <p>You are being redirected to <a href="/landing">HomePage</a></p>
+</body>
+<% } else if (uiParams.errorcode == 404){ %>
+
+<body>
+    <p><b>Page Not Found</b></p>
+    <p>You are being redirected to <a href="/landing">HomePage</a></p>
+</body>
+<% } %>
+<% } %>
+
+</html>

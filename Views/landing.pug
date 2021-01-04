@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+  body
+    em SER421 MVC Ex Landing Page 
+    form(action="/landing" method="POST")
+      |Username: 
+      if username!=null
+        input(type="text" name="usernameTxt" pattern="^[a-zA-Z]+$" title="Only Lower or Upper case letters without space Allowed" value=username required)
+      else
+        input(type="text" name="usernameTxt" pattern="^[a-zA-Z]+$" title="Only Lower or Upper case letters without space Allowed" required)
+
+      br
+      input(type="submit" name= "action" value="survey")
+      input(type="submit" name="action" value= "match")
+
+

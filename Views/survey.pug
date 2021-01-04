@@ -1,0 +1,77 @@
+doctype html
+html
+    if uiParams.showFinal == false && uiParams.showMatch == false && uiParams.err == false
+        body
+            form(action="/survey" method="POST")
+                p Survey Page #{uiParams.pageNum} for user #{uiParams.name}
+                p #{uiParams.question}
+                a(href="/preferences") Set Your Rendering Preferences
+                br
+                input(type="hidden" name="pageNum" value = uiParams.pageNum)
+                each choice in uiParams.choices
+                    if choice == uiParams.choiceToBeSelected
+                        input(type="radio" name= "choice" value= choice checked)
+                        label= choice
+                        if uiParams.pref == "vertical"
+                            br
+                    else
+                        input(type="radio"  name= "choice" value= choice)
+                        label= choice
+                        if uiParams.pref == "vertical"
+                            br
+                input(type="submit" name= "action" value="previous" style= "display:" + uiParams.previousFlag )
+                input(type="submit" name= "action" value="next" style="display:" + uiParams.nextFlag )
+    if uiParams.showFinal == true && uiParams.showMatch == false && uiParams.err == false
+        body
+            <b>Thanks for completing the survey!!!
+            p 
+            |You are being redirected to 
+            a(href="/landing") HomePage
+    
+    if uiParams.showMatch == true && uiParams.err == false
+        head
+            title SER421 MVC Ex Survey Matches
+        body
+            p Pug Best survey matches for #{uiParams.name} best-to-worst:
+            if uiParams.matchDataFlag != false
+                ol
+                    each match in uiParams.matchData
+                        li User: #{match.username} matched #{match.maxMatch} answers
+            else if uiParams.matchDataFlag == false
+                p #{uiParams.matchData[0]} #{uiParams.name}
+    if uiParams.err == true
+        if uiParams.errorcode == 500
+            body
+                p 
+                b Internal server error
+                p 
+                    |You are being redirected to 
+                    a(href="/landing") HomePage
+        else if uiParams.errorcode == 401
+            body
+                h1 HTTP Error Page
+                p 
+                b Improper request, no action or username present
+                p 
+                    |You are being redirected to 
+                    a(href="/landing") HomePage
+        else if uiParams.errorcode == 404
+            body
+                p 
+                b Page Not Found
+                p 
+                    |You are being redirected to 
+                    a(href="/landing") HomePage
+        else if uiParams.errorcode == 405
+            body
+                p 
+                b Method Not Allowed
+                p 
+                    |You are being redirected to 
+                    a(href="/landing") HomePage
+
+
+        
+
+        
+

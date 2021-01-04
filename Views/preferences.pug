@@ -1,0 +1,21 @@
+doctype html
+html
+    form(action="/preferences" method="POST")
+        p 
+            |Your current rendering preference is 
+            em #{preference}
+        if(preference == "horizontal")
+            input(type="radio" name= "prefradio" value= "horizontal" checked)
+            label= "Horizontal"
+            input(type="radio" name= "prefradio" value= "vertical")
+            label= "Vertical"
+        else
+            input(type="radio" name= "prefradio" value= "horizontal")
+            label= "Horizontal"
+            input(type="radio" name= "prefradio" value= "vertical" checked)
+            label= "Vertical"
+        input(type="submit" name= "action" value="sumbit")
+
+
+        
+

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="eng">
+<body>
+    <form action="/preferences" method="POST">
+        <p>Your current rendering preference is <em><%= preference %></em>  ejs</p>
+        <% if (preference == "horizontal") { %>
+            <input type="radio" name="prefradio" value="horizontal" checked>
+            <label for="horizontalLbl">Horizontal</label>
+            <input type="radio" name="prefradio" value="vertical">
+            <label for="horizontalLbl">Vertical</label>
+        <% } else{ %>
+            <input type="radio" name="prefradio" value="horizontal">
+            <label for="horizontalLbl">Horizontal</label>
+            <input type="radio" name="prefradio" value="vertical" checked>
+            <label for="horizontalLbl">Vertical</label>
+        <% } %>
+        <input type="submit" name="action" value="submit">
+    </form>
+
+</body>
+
+</html>
+
+
